@@ -13,12 +13,22 @@ ofxTPSprite::ofxTPSprite(ofxTPSpriteDataPtr theData) :
 float ofxTPSprite::getWidth(){
     return data->getW();
 }
+/*
+ofxTPSpriteDataPtr ofxTPSprite::getData()
+{
+	return data;
+}
+*/
+float ofxTPSprite::getHeight()
+{
+	return data->getHeight();
+}
 
-void ofxTPSprite::draw(int x, int y) {
+void ofxTPSprite::draw(int x, int y, int z) {
     if(data->isRotated()) {
         ofPushMatrix();
-            ofTranslate(x, y); // translate Draw position
-            x = y = 0;
+            ofTranslate(x, y, z); // translate Draw position
+            x = y = z = 0;
             ofPushMatrix();
         
 //            if(data->isDebugMode()){
@@ -32,7 +42,7 @@ void ofxTPSprite::draw(int x, int y) {
 //                ofPopStyle();
 //            }
             ofTranslate(data->getOffsetX(), data->getOffsetHeight()-data->getOffsetY());
-            ofRotate(-90);
+            ofRotateDeg(-90);
             if(data->isDebugMode()){
                 ofPushStyle();
                 ofSetColor(0, 255, 0, 128);
@@ -57,8 +67,11 @@ void ofxTPSprite::draw(int x, int y) {
     if(texture != NULL) {
         ofPushMatrix();
         //ofLog() << data->getPX() << " " << data->getW();
-        ofTranslate(-data->getPX() * data->getW(), -data->getPY() * data->getH());
+        ofTranslate(-data->getPX() * data->getW(), -data->getPY() * data->getH(), z);
         texture->drawSubsection(x, y, data->getW(), data->getH(), data->getX(), data->getY(), data->getW(), data->getH());
+		ofNoFill();
+		//ofDrawRectangle(x, y, data->getW(), data->getH());
+		ofFill();
         ofPopMatrix();
     }
     
@@ -67,4 +80,44 @@ void ofxTPSprite::draw(int x, int y) {
          ofPopStyle();
          ofPopMatrix();
     }
+}
+
+ofMesh ofxTPSprite::getMesh()
+{
+	ofMesh tempMesh;
+	if (data != NULL) 
+	{
+		//Texture UV
+		float textureOffsetX = data->getX();
+		float textureOffsetY = data->getY();
+		float anchorX = data->getPX();
+		float anchorY = data->getPY();
+
+		//Mesh-Texture dimensions
+		float width = data->getW();
+		float height = data->getH();
+
+		//Mesh translation
+		float xOffset = data->getOffsetX() - anchorX*width;
+		float yOffset = data->getOffsetY() - anchorY*height;
+
+
+		
+		tempMesh.setMode(OF_PRIMITIVE_TRIANGLES);
+		tempMesh.addVertex(ofDefaultVertexType(xOffset, yOffset, 0));
+		tempMesh.addTexCoord(ofVec2f(textureOffsetX, textureOffsetY));
+		tempMesh.addVertex(ofDefaultVertexType(xOffset, yOffset + height, 0));
+		tempMesh.addTexCoord(ofVec2f(textureOffsetX, textureOffsetY + height));
+		tempMesh.addVertex(ofDefaultVertexType(xOffset + width, yOffset, 0));
+		tempMesh.addTexCoord(ofVec2f(textureOffsetX + width, textureOffsetY));
+		
+		tempMesh.addVertex(ofDefaultVertexType(xOffset + width, yOffset, 0));
+		tempMesh.addTexCoord(ofVec2f(textureOffsetX + width, textureOffsetY));
+		tempMesh.addVertex(ofDefaultVertexType(xOffset + width, yOffset + height, 0));
+		tempMesh.addTexCoord(ofVec2f(textureOffsetX + width, textureOffsetY + height));
+		tempMesh.addVertex(ofDefaultVertexType(xOffset, yOffset + height, 0));
+		tempMesh.addTexCoord(ofVec2f(textureOffsetX, textureOffsetY + height));
+	}
+
+	return tempMesh;
 }

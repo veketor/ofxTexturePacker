@@ -60,6 +60,8 @@ public:
     const string getTextureFilePath() const;
     void setTexture(shared_ptr<ofTexture> newTexture);
     
+	void bindTexture();
+	void unbindTexture();
 protected:
 
     vector<ofxTPSpritePtr> sprites;

@@ -17,7 +17,8 @@ class ofxTPAnimatedSprite : public ofxTPSpriteCore {
 public:
     ofxTPAnimatedSprite();
     
-    void draw(int x, int y);
+    void draw(int x, int y, int z = 0);
+	ofMesh getMesh();
     void update();
     
     void setName(const string& theName);

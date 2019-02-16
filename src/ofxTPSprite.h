@@ -16,11 +16,12 @@ class ofxTPSprite : public ofxTPSpriteCore {
 public:
     ofxTPSprite(ofxTPSpriteDataPtr data);
     
-    void draw(int x, int y);
-    
+    void draw(int x, int y, int z = 0);
+	ofMesh getMesh();
     const string& getName() const;
     ofxTPSpriteDataPtr getData();
     float getWidth();
+	float getHeight();
     void setDebugMode(bool debugMode);
 protected:
     ofxTPSpriteDataPtr data;

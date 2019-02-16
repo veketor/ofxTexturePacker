@@ -12,15 +12,29 @@ ofxTPAnimatedSprite::ofxTPAnimatedSprite() : name(""), frame(0), loopType(OF_LOO
     bPlayingReverse = false;
 }
 
-void ofxTPAnimatedSprite::draw(int x, int y) {
+void ofxTPAnimatedSprite::draw(int x, int y, int z) {
     unsigned int currentFrameIndex = getCurrentFrame();
     unsigned int allFramesIndex = frames.size();
     if(frames.size() == 0 || currentFrameIndex > allFramesIndex) {
         ofLog(OF_LOG_ERROR, "ofxTPAnimatedSprite::draw:: Current Frame is out of index for loaded AnimatedSprite");
         return;
     } else {
-        frames[currentFrameIndex]->draw(x, y);
+        frames[currentFrameIndex]->draw(x, y, z);
     }
+}
+
+ofMesh ofxTPAnimatedSprite::getMesh()
+{
+	unsigned int currentFrameIndex = getCurrentFrame();
+	unsigned int allFramesIndex = frames.size();
+	if (frames.size() == 0 || currentFrameIndex > allFramesIndex) {
+		ofLog(OF_LOG_ERROR, "ofxTPAnimatedSprite::draw:: Current Frame is out of index for loaded AnimatedSprite");
+		return ofMesh();
+	}
+	else 
+	{	
+		return frames[currentFrameIndex]->getMesh();
+	}
 }
 
 void ofxTPAnimatedSprite::update() {
@@ -161,7 +175,7 @@ float ofxTPAnimatedSprite::getHeight(){
 }
 
 void ofxTPAnimatedSprite::nextFrame() {
-    int index = getCurrentFrame() + 1;
+    size_t index = getCurrentFrame() + 1;
     if(index > frameLast) {
         if(loopType == OF_LOOP_NONE) {
             index = frameLast;
@@ -173,6 +187,7 @@ void ofxTPAnimatedSprite::nextFrame() {
         }
     }
     setFrame(index);
+	ofLogVerbose("Frame: " + ofToString(index));
 }
 
 void ofxTPAnimatedSprite::previousFrame() {

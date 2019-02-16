@@ -50,7 +50,7 @@ vector<ofxTPSpriteDataPtr> ofxTPLoader::load(const string fileName) {
                     ofLog(OF_LOG_VERBOSE, names[i]);
                 }
             }
-            for(int i = 0; i < numberOfSprites; i++){
+            for(size_t i = 0; i < numberOfSprites; i++){
                 ofxTPSpriteDataPtr sprite = ofxTPSpriteDataPtr(new ofxTPSpriteData());
                 string n = XML.getAttribute("sprite", "n", "", i);
                 sprite->setName(XML.getAttribute("sprite", "n", "", i));
