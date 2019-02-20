@@ -1,11 +1,11 @@
 <install>
 	<name>ofxTexturePacker</name>
-    <version>0.2</version>
+    <version>0.21</version>
     <author><[CDATA[Daniel Rosser <danoli3@gmail.com> ]]></author>
    
-    <code_url>https://github.com/danoli3/ofxTexturePacker</code_url>
-    <site_url>https://github.com/danoli3/</site_url>
-    <download_url>https://github.com/danoli3/ofxTexturePacker</download_url>
+    <code_url>https://github.com/veketor/ofxTexturePacker</code_url>
+    <site_url>https://github.com/veketor/ofxTexturePacker</site_url>
+    <download_url>https://github.com/veketor/ofxTexturePacker</download_url>
    
     <description><![CDATA[
           Addon for loading and using Animated Sprites and Sprites generated using Texture Packer.
@@ -33,6 +33,8 @@
 				<file>../../../addons/ofxTexturePacker/src/ofxTPSpriteData.h</file>
 				<file>../../../addons/ofxTexturePacker/src/ofxTPTextureAtlas.h</file>
 				<file>../../../addons/ofxTexturePacker/src/ofxTPTypes.h</file>
+				<file>../../../addons/ofxTexturePacker/src/ofxTPCompoundSprite.h</file>
+				<file>../../../addons/ofxTexturePacker/src/ofxTPCompoundSprite.cpp</file>
 			</folder>
 		</src>
 		

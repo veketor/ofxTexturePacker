@@ -25,6 +25,7 @@ public:
     
     virtual const string& getName() const;
     ofxTPSpriteType getType() const;
+	shared_ptr<ofTexture> getTexture() { return texture; }
 protected:
     shared_ptr<ofTexture> texture;
     ofxTPSpriteType type;

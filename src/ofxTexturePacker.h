@@ -12,6 +12,7 @@
 #include "ofxTPSpriteCore.h"
 #include "ofxTPAnimatedSprite.h"
 #include "ofxTPSprite.h"
+#include "ofxTPCompoundSprite.h"
 
 #include "math.h"
 

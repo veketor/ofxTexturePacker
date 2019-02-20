@@ -18,6 +18,7 @@ public:
     
     void draw(int x, int y, int z = 0);
 	ofMesh getMesh();
+	of3dPrimitive getPrimitive();
     const string& getName() const;
     ofxTPSpriteDataPtr getData();
     float getWidth();

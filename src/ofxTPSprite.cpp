@@ -92,16 +92,12 @@ ofMesh ofxTPSprite::getMesh()
 		float textureOffsetY = data->getY();
 		float anchorX = data->getPX();
 		float anchorY = data->getPY();
-
 		//Mesh-Texture dimensions
 		float width = data->getW();
 		float height = data->getH();
-
 		//Mesh translation
 		float xOffset = data->getOffsetX() - anchorX*width;
 		float yOffset = data->getOffsetY() - anchorY*height;
-
-
 		
 		tempMesh.setMode(OF_PRIMITIVE_TRIANGLES);
 		tempMesh.addVertex(ofDefaultVertexType(xOffset, yOffset, 0));
@@ -110,14 +106,24 @@ ofMesh ofxTPSprite::getMesh()
 		tempMesh.addTexCoord(ofVec2f(textureOffsetX, textureOffsetY + height));
 		tempMesh.addVertex(ofDefaultVertexType(xOffset + width, yOffset, 0));
 		tempMesh.addTexCoord(ofVec2f(textureOffsetX + width, textureOffsetY));
-		
-		tempMesh.addVertex(ofDefaultVertexType(xOffset + width, yOffset, 0));
-		tempMesh.addTexCoord(ofVec2f(textureOffsetX + width, textureOffsetY));
 		tempMesh.addVertex(ofDefaultVertexType(xOffset + width, yOffset + height, 0));
 		tempMesh.addTexCoord(ofVec2f(textureOffsetX + width, textureOffsetY + height));
-		tempMesh.addVertex(ofDefaultVertexType(xOffset, yOffset + height, 0));
-		tempMesh.addTexCoord(ofVec2f(textureOffsetX, textureOffsetY + height));
+		tempMesh.enableIndices();
+		tempMesh.addIndex(0);
+		tempMesh.addIndex(1);
+		tempMesh.addIndex(2);
+		tempMesh.addIndex(2);
+		tempMesh.addIndex(1);
+		tempMesh.addIndex(3);
 	}
-
 	return tempMesh;
+}
+
+of3dPrimitive ofxTPSprite::getPrimitive()
+{
+	of3dPrimitive tempPrimitive;
+	ofMesh tempMesh = getMesh();
+	ofMesh *tempMeshOf3dPrimitivePTR = tempPrimitive.getMeshPtr();
+	tempMeshOf3dPrimitivePTR = &tempMesh;
+	return tempPrimitive;
 }
